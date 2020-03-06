@@ -5,10 +5,14 @@ import Users from './components/users/Users';
 import axios from 'axios';
 
 class App extends Component {
-	componentDidMount() {
+	async componentDidMount() {
 		// Get-request to the github api
 		// axios deals with promises (then) -> which gets a response, as data
-		axios.get('https://api.github.com/users').then((res) => console.log(res.data));
+
+		// axios.get('https://api.github.com/users').then((res) => console.log(res.data));
+
+		const res = await axios.get('https://api.github.com/users');
+		console.log(res.data);
 	}
 
 	render() {
