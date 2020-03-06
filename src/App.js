@@ -30,6 +30,7 @@ class App extends Component {
 	// }
 
 	searchUsers = async (text) => {
+		this.setState({ loading: true });
 		const res = await axios.get(
 			`https://api.github.com/search/users?q=${text}&client_id=$
 			{process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=$
