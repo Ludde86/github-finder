@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
+import axios from 'axios';
 
 class App extends Component {
-	// when we want to make an http request, when the app loads, we do it in this lifecycle method
 	componentDidMount() {
-		console.log('App.js mounted');
+		// Get-request to the github api
+		// axios deals with promises (then) -> which gets a response, as data
+		axios.get('https://api.github.com/users').then((res) => console.log(res.data));
 	}
 
 	render() {
