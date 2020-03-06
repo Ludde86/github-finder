@@ -22,7 +22,6 @@ class App extends Component {
 			users: res.data,
 			loading: false
 		});
-		console.log(this.state.users);
 	}
 
 	render() {
