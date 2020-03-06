@@ -10,6 +10,7 @@ class App extends Component {
 		loading: false
 	};
 	async componentDidMount() {
+		this.setState({ loading: true });
 		// Get-request to the github api
 		// axios deals with promises (then -> response or reject) -> gets a response, as data
 
@@ -18,7 +19,8 @@ class App extends Component {
 		const res = await axios.get('https://api.github.com/users');
 
 		this.setState({
-			users: res.data
+			users: res.data,
+			loading: false
 		});
 		console.log(this.state.users);
 	}
