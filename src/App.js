@@ -4,6 +4,11 @@ import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
 
 class App extends Component {
+	// when we want to make an http request, when the app loads, we do it in this lifecycle method
+	componentDidMount() {
+		console.log('App.js mounted');
+	}
+
 	render() {
 		return (
 			<div className="App">
