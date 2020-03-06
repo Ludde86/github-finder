@@ -33,8 +33,8 @@ class App extends Component {
 		return (
 			<div className="App">
 				<Navbar title="Github Finder" icon="fab fa-github" />
-				<Search />
 				<div className="container">
+					<Search />
 					<Users users={this.state.users} loading={this.state.loading} />
 				</div>
 			</div>
