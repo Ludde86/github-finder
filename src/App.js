@@ -5,14 +5,22 @@ import Users from './components/users/Users';
 import axios from 'axios';
 
 class App extends Component {
+	state = {
+		users: [],
+		loading: false
+	};
 	async componentDidMount() {
 		// Get-request to the github api
-		// axios deals with promises (then) -> which gets a response, as data
+		// axios deals with promises (then -> response or reject) -> gets a response, as data
 
 		// axios.get('https://api.github.com/users').then((res) => console.log(res.data));
-
+		// refactored -> await a response or reject
 		const res = await axios.get('https://api.github.com/users');
-		console.log(res.data);
+
+		this.setState({
+			users: res.data
+		});
+		console.log(this.state.users);
 	}
 
 	render() {
