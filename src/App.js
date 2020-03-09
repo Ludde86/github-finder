@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/layout/Navbar';
@@ -63,23 +63,35 @@ class App extends Component {
 	render() {
 		const { users, loading, alert } = this.state;
 		return (
-			<div className="App">
-				<Navbar title="Github Finder" icon="fab fa-github" />
+			<Router>
+				<div className="App">
+					<Navbar title="Github Finder" icon="fab fa-github" />
 
-				<div className="container">
-					<Alert
-						alert={alert} // we pass the message state, and type state
-					/>
-					<Search
-						searchUsers={this.searchUsers}
-						clearUsers={this.clearUsers}
-						showClear={!!users.length && true}
-						setAlert={this.setAlert}
-					/>
-
-					<Users users={users} loading={loading} />
+					<div className="container">
+						<Alert
+							alert={alert} // we pass the message state, and type state
+						/>
+						<Switch //put multiply component in a sigle route
+						>
+							<Route
+								exact
+								path="/"
+								render={(props) => (
+									<Fragment>
+										<Search
+											searchUsers={this.searchUsers}
+											clearUsers={this.clearUsers}
+											showClear={!!users.length && true}
+											setAlert={this.setAlert}
+										/>
+										<Users users={users} loading={loading} />
+									</Fragment>
+								)}
+							/>
+						</Switch>
+					</div>
 				</div>
-			</div>
+			</Router>
 		);
 	}
 }
