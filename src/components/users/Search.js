@@ -36,7 +36,8 @@ class Search extends Component {
 }
 
 Search.propTypes = {
-	searchUsers: PropTypes.func.isRequired
+	searchUsers: PropTypes.func.isRequired,
+	clearUsers: PropTypes.func.isRequired
 };
 
 export default Search;
