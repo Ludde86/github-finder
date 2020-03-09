@@ -8,8 +8,13 @@ class Search extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		this.props.searchUsers(this.state.text);
-		this.setState({ text: '' });
+		// this triggers the setAlert function -> which then sets the alert state with thiese arguments (msg, type)
+		if (this.state.text === '') {
+			this.props.setAlert('Please enter something', 'light');
+		} else {
+			this.props.searchUsers(this.state.text);
+			this.setState({ text: '' });
+		}
 	};
 
 	render() {
@@ -25,6 +30,7 @@ class Search extends Component {
 						onChange={(e) => this.setState({ text: e.target.value })}
 						autoComplete="off"
 					/>
+
 					<input type="submit" value="search" className="btn btn-dark btn-block" />
 				</form>
 				{showClear && (
@@ -40,7 +46,8 @@ class Search extends Component {
 Search.propTypes = {
 	searchUsers: PropTypes.func.isRequired,
 	clearUsers: PropTypes.func.isRequired,
-	showClear: PropTypes.bool.isRequired
+	showClear: PropTypes.bool.isRequired,
+	setAlert: PropTypes.func.isRequired
 };
 
 export default Search;
