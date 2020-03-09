@@ -8,6 +8,7 @@ class Search extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
+		// this triggers the setAlert function -> which then sets the alert state with thiese arguments (msg, type)
 		if (this.state.text === '') {
 			this.props.setAlert('Please enter something', 'light');
 		} else {

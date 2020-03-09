@@ -49,6 +49,7 @@ class App extends Component {
 		this.setState({ users: [], loading: false });
 	};
 
+	// sets the alert state with the arguments from Search component when the search is empty
 	setAlert = (msg, type) => {
 		this.setState({
 			alert: { msg, type }
@@ -62,7 +63,9 @@ class App extends Component {
 				<Navbar title="Github Finder" icon="fab fa-github" />
 
 				<div className="container">
-					<Alert alert={alert} />
+					<Alert
+						alert={alert} // we pass the message state, and type state
+					/>
 					<Search
 						searchUsers={this.searchUsers}
 						clearUsers={this.clearUsers}
