@@ -1,14 +1,20 @@
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
 import RepoItem from './RepoItem';
+import PropTypes from 'prop-types';
 
-class Repos extends Component {
-	componentDidMount() {
-		this.props.getUserRepos(this.props.match.params.login);
-	}
-	render() {
-		const { repos } = this.props;
-		return <div>{repos.map((repo) => <RepoItem key={repo.id} repo={repo} />)}</div>;
-	}
-}
+const Repos = ({ repos }) => {
+	return (
+		<Fragment>
+			<div className="card">
+				<h3>Recently used Repos</h3>
+				{repos.map((repo) => <RepoItem key={repo.id} repo={repo} />)}
+			</div>
+		</Fragment>
+	);
+};
+
+Repos.propTypes = {
+	repos: PropTypes.array.isRequired
+};
 
 export default Repos;

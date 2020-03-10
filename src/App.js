@@ -9,7 +9,6 @@ import Alert from './components/layout/Alert';
 import './App.css';
 import About from './components/pages/About';
 import User from './components/users/User';
-import Repos from './components/repos/Repos';
 
 class App extends Component {
 	state = {
@@ -66,7 +65,7 @@ class App extends Component {
 		this.setState({ loading: true });
 
 		const res = await axios.get(
-			`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=$
+			`https://api.github.com/users/${username}/repos?per_page=20&sort=created:asc&client_id=$
 			{process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=$
 			{process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
 		);
@@ -129,9 +128,10 @@ class App extends Component {
 											{...props} // we add (display) the props passed in
 											getUser={this.getUser} // pass this function to User.js
 											user={user} // pass the user state
+											repos={repos}
+											getUserRepos={this.getUserRepos}
 											loading={loading}
 										/>
-										<Repos {...props} repos={repos} getUserRepos={this.getUserRepos} />
 									</Fragment>
 								)}
 							/>
