@@ -19,7 +19,8 @@ const User = ({ user, loading, repos, getUser, getUserRepos, match }) => {
 			getUser(match.params.login);
 			getUserRepos(match.params.login);
 		},
-		[ getUser, getUserRepos, match.params.login ]
+		[]
+		// [ getUser, getUserRepos, match.params.login ]
 	);
 
 	const {
