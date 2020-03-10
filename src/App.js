@@ -111,7 +111,7 @@ class App extends Component {
 										{...props} // we add (display) the props passed in
 										getUser={this.getUser} // pass this function to User.js
 										user={user} // pass the user state
-										loadin={loading}
+										loading={loading}
 									/>
 								)}
 							/>
