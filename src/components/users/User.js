@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import Spinner from '../layout/Spinner';
 
 class User extends Component {
 	// pull the username (the login) from the url, and then call getUser
@@ -24,13 +25,13 @@ class User extends Component {
 			hireable
 		} = this.props.user;
 
-		const { loading } = this.props;
+		const { user, loading } = this.props;
 
 		return (
-			<div>
-				{name}
-				{login}
-			</div>
+			<Fragment>
+				{loading && <Spinner />}
+				<div>{name}</div>
+			</Fragment>
 		);
 	}
 }
