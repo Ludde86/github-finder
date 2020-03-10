@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Spinner from '../layout/Spinner';
+import PropTypes from 'prop-types';
 
 class User extends Component {
 	// pull the username (the login) from the url, and then call getUser
@@ -9,6 +10,13 @@ class User extends Component {
 	componentDidMount() {
 		this.props.getUser(this.props.match.params.login);
 	}
+
+	static propTypes = {
+		getUser: PropTypes.func.isRequired,
+		loading: PropTypes.bool.isRequired,
+		user: PropTypes.object.isRequired
+	};
+
 	render() {
 		const {
 			name,
@@ -25,7 +33,7 @@ class User extends Component {
 			hireable
 		} = this.props.user;
 
-		const { user, loading } = this.props;
+		const { loading } = this.props;
 
 		return (
 			<Fragment>
