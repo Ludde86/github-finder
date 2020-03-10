@@ -53,7 +53,7 @@ class User extends Component {
 					<div className="all-center">
 						<img src={avatar_url} alt="profile avatar" style={{ width: 150 }} />
 						<h1>{name}</h1>
-						<p>Location: {location}</p>
+						<p>{location}</p>
 					</div>
 					<div>
 						{bio && (
