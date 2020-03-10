@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class User extends Component {
 	// pull the username (the login) from the url, and then call getUser
@@ -38,7 +39,18 @@ class User extends Component {
 		return (
 			<Fragment>
 				{loading && <Spinner />}
-				<div>{name}</div>
+				<Link to="/" className="btn btn-light">
+					Back To Search
+				</Link>
+				<br />
+				{name}
+				<br />
+				Hireable:{' '}
+				{hireable ? (
+					<i className="fas fa-check text-success" />
+				) : (
+					<i className="fas fa-times-circle text-danger" />
+				)}
 			</Fragment>
 		);
 	}
