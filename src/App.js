@@ -8,6 +8,7 @@ import Alert from './components/layout/Alert';
 
 import './App.css';
 import About from './components/pages/About';
+import User from './components/users/User';
 
 class App extends Component {
 	state = {
@@ -74,7 +75,7 @@ class App extends Component {
 	};
 
 	render() {
-		const { users, loading, alert } = this.state;
+		const { users, user, loading, alert } = this.state;
 		return (
 			<Router>
 				<div className="App">
@@ -102,6 +103,18 @@ class App extends Component {
 								)}
 							/>
 							<Route exact path="/about" component={About} />
+							<Route
+								exact
+								path="/user/:login" // use :login to know which user to display, as a part of the url
+								render={(props) => (
+									<User
+										{...props} // we add (display) the props passed in
+										getUser={this.getUser} // pass this function to User.js
+										user={user} // pass the user state
+										loadin={loading}
+									/>
+								)}
+							/>
 						</Switch>
 					</div>
 				</div>
