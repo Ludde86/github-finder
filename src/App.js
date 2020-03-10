@@ -9,6 +9,7 @@ import Alert from './components/layout/Alert';
 import './App.css';
 import About from './components/pages/About';
 import User from './components/users/User';
+import GithubState from './context/github/GithubState';
 
 const App = () => {
 	const [ users, setUsers ] = useState([]);
@@ -84,52 +85,54 @@ const App = () => {
 	};
 
 	return (
-		<Router>
-			<div className="App">
-				<Navbar title="Github Finder" icon="fab fa-github" />
+		<GithubState>
+			<Router>
+				<div className="App">
+					<Navbar title="Github Finder" icon="fab fa-github" />
 
-				<div className="container">
-					<Alert
-						alert={alert} // we pass the message state, and type state
-					/>
-					<Switch //put multiply component in a sigle route
-					>
-						<Route
-							exact
-							path="/"
-							render={(props) => (
-								<Fragment>
-									<Search
-										searchUsers={searchUsers}
-										clearUsers={clearUsers}
-										showClear={!!users.length && true}
-										setAlert={showAlert}
-									/>
-									<Users users={users} loading={loading} />
-								</Fragment>
-							)}
+					<div className="container">
+						<Alert
+							alert={alert} // we pass the message state, and type state
 						/>
-						<Route exact path="/about" component={About} />
-						<Route
-							exact
-							path="/user/:login" // use :login to know which user to display, as a part of the url
-							render={(props) => (
-								<Fragment>
-									<User
-										{...props} // we add (display) the props passed in (-> match)
-										getUser={getUser} // pass this function to User.js
-										user={user} // pass the user state
-										repos={repos}
-										getUserRepos={getUserRepos}
-										loading={loading}
-									/>
-								</Fragment>
-							)}
-						/>
-					</Switch>
+						<Switch //put multiply component in a sigle route
+						>
+							<Route
+								exact
+								path="/"
+								render={(props) => (
+									<Fragment>
+										<Search
+											searchUsers={searchUsers}
+											clearUsers={clearUsers}
+											showClear={!!users.length && true}
+											setAlert={showAlert}
+										/>
+										<Users users={users} loading={loading} />
+									</Fragment>
+								)}
+							/>
+							<Route exact path="/about" component={About} />
+							<Route
+								exact
+								path="/user/:login" // use :login to know which user to display, as a part of the url
+								render={(props) => (
+									<Fragment>
+										<User
+											{...props} // we add (display) the props passed in (-> match)
+											getUser={getUser} // pass this function to User.js
+											user={user} // pass the user state
+											repos={repos}
+											getUserRepos={getUserRepos}
+											loading={loading}
+										/>
+									</Fragment>
+								)}
+							/>
+						</Switch>
+					</div>
 				</div>
-			</div>
-		</Router>
+			</Router>
+		</GithubState>
 	);
 };
 
