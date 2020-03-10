@@ -1,47 +1,44 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-class Search extends Component {
-	state = {
-		text: ''
-	};
+const Search = (props) => {
+	const [ text, setText ] = useState('');
 
-	handleSubmit = (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
 		// this triggers the setAlert function -> which then sets the alert state with thiese arguments (msg, type)
-		if (this.state.text === '') {
-			this.props.setAlert('Please enter something', 'light');
+		if (text === '') {
+			props.setAlert('Please enter something', 'light');
 		} else {
-			this.props.searchUsers(this.state.text);
-			this.setState({ text: '' });
+			props.searchUsers(text);
+			setText('');
 		}
 	};
 
-	render() {
-		const { clearUsers, showClear } = this.props;
-		return (
-			<div>
-				<form onSubmit={this.handleSubmit} className="form">
-					<input
-						type="text"
-						name="text"
-						placeholder="Search Users..."
-						value={this.state.text}
-						onChange={(e) => this.setState({ text: e.target.value })}
-						autoComplete="off"
-					/>
+	const { clearUsers, showClear } = props;
+	return (
+		<div>
+			<form onSubmit={handleSubmit} className="form">
+				<input
+					type="text"
+					name="text"
+					placeholder="Search Users..."
+					value={text}
+					// onChange={(e) => this.setState({ text: e.target.value })}
+					onChange={(e) => setText(e.target.value)}
+					autoComplete="off"
+				/>
 
-					<input type="submit" value="search" className="btn btn-dark btn-block" />
-				</form>
-				{showClear && (
-					<button onClick={clearUsers} className="btn -btn-light btn-block">
-						Clear
-					</button>
-				)}
-			</div>
-		);
-	}
-}
+				<input type="submit" value="search" className="btn btn-dark btn-block" />
+			</form>
+			{showClear && (
+				<button onClick={clearUsers} className="btn -btn-light btn-block">
+					Clear
+				</button>
+			)}
+		</div>
+	);
+};
 
 Search.propTypes = {
 	searchUsers: PropTypes.func.isRequired,
