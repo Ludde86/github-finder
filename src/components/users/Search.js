@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Search = (props) => {
+const Search = ({ searchUsers, setAlert, clearUsers, showClear }) => {
 	const [ text, setText ] = useState('');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// this triggers the setAlert function -> which then sets the alert state with thiese arguments (msg, type)
 		if (text === '') {
-			props.setAlert('Please enter something', 'light');
+			setAlert('Please enter something', 'light');
 		} else {
-			props.searchUsers(text);
+			searchUsers(text);
 			setText('');
 		}
 	};
 
-	const { clearUsers, showClear } = props;
 	return (
 		<div>
 			<form onSubmit={handleSubmit} className="form">
