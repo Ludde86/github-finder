@@ -10,13 +10,9 @@ const User = ({ match }) => {
 	// params = '/user/:login'
 	// this params is passed in as an argument (username)
 	// -> fetch the data with this username
-	// componentDidMount() {
-	// 	this.props.getUser(this.props.match.params.login);
-	// 	this.props.getUserRepos(this.props.match.params.login);
-	// }
 
 	const githubContext = useContext(GithubContext);
-	const { user, getUser, repos, getUserRepos, loading } = githubContext;
+	const { user, getUser, getUserRepos, loading } = githubContext;
 	useEffect(
 		() => {
 			getUser(match.params.login);
@@ -98,7 +94,7 @@ const User = ({ match }) => {
 				<div className="badge badge-danger">Public Repos: {public_repos}</div>
 				<div className="badge badge-dark">Public Gists: {public_gists}</div>
 			</div>
-			<Repos repos={repos} />
+			<Repos />
 		</Fragment>
 	);
 };
