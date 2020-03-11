@@ -10,6 +10,7 @@ import User from './components/users/User';
 import GithubState from './context/github/GithubState';
 
 import './App.css';
+import AlertState from './context/alert/AlertState';
 
 const App = () => {
 	// const [ users, setUsers ] = useState([]);
@@ -41,36 +42,36 @@ const App = () => {
 
 	return (
 		<GithubState>
-			<Router>
-				<div className="App">
-					<Navbar title="Github Finder" icon="fab fa-github" />
+			<AlertState>
+				<Router>
+					<div className="App">
+						<Navbar title="Github Finder" icon="fab fa-github" />
 
-					<div className="container">
-						<Alert
-							alert={alert} // we pass the message state, and type state
-						/>
-						<Switch //put multiply component in a sigle route
-						>
-							<Route
-								exact
-								path="/"
-								render={(props) => (
-									<Fragment>
-										<Search />
-										<Users />
-									</Fragment>
-								)}
-							/>
-							<Route exact path="/about" component={About} />
-							<Route
-								exact
-								path="/user/:login" // use :login to know which user to display, as a part of the url
-								component={User}
-							/>
-						</Switch>
+						<div className="container">
+							<Alert />
+							<Switch //put multiply component in a sigle route
+							>
+								<Route
+									exact
+									path="/"
+									render={(props) => (
+										<Fragment>
+											<Search />
+											<Users />
+										</Fragment>
+									)}
+								/>
+								<Route exact path="/about" component={About} />
+								<Route
+									exact
+									path="/user/:login" // use :login to know which user to display, as a part of the url
+									component={User}
+								/>
+							</Switch>
+						</div>
 					</div>
-				</div>
-			</Router>
+				</Router>
+			</AlertState>
 		</GithubState>
 	);
 };

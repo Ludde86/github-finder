@@ -3,8 +3,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import GithubContext from './githubContext';
 import GithubReducer from './githubReducer';
-import { SEARCH_USERS, SET_LOADING, CLEAR_USERS, GET_USER, GET_REPOS, SET_ALERT } from '../types';
-import githubContext from './githubContext';
+import { SEARCH_USERS, SET_LOADING, CLEAR_USERS, GET_USER, GET_REPOS } from '../types';
 
 // our initial state
 const GithubState = (props) => {
@@ -13,8 +12,7 @@ const GithubState = (props) => {
 		users: [],
 		user: {},
 		repos: [],
-		loading: false,
-		alert: false
+		loading: false
 	};
 
 	// in order to dispatch to our reducer (-> calla request to github)
@@ -76,25 +74,9 @@ const GithubState = (props) => {
 		// setUsers([]);
 	};
 
-	// sets the alert state with the arguments from Search component when the search is empty
-	const showAlert = (msg, type) => {
-		setAlert(msg, type);
-		setTimeout(() => {
-			setAlert(null);
-		}, 3000);
-	};
-
 	// Set Loading
 	const setLoading = () => {
 		dispatch({ type: SET_LOADING });
-	};
-
-	// Set Alert
-	const setAlert = (msg, type) => {
-		dispatch({
-			type: SET_ALERT,
-			payload: { msg, type }
-		});
 	};
 
 	// what we want to return is the Provider
@@ -106,13 +88,10 @@ const GithubState = (props) => {
 				user: state.user,
 				repos: state.repos,
 				loading: state.loading,
-				alert: state.alert,
 				searchUsers,
 				clearUsers,
 				getUser,
-				getUserRepos,
-				showAlert,
-				setAlert
+				getUserRepos
 			}}
 		>
 			{props.children}
