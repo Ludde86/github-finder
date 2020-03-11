@@ -3,6 +3,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import GithubContext from './githubContext';
 import GithubReducer from './githubReducer';
+import { SEARCH_USERS, SET_LOADING, CLEAR_USERS, GET_USERS, GET_REPOS } from '../types';
 
 // our initial state
 const GithubState = (props) => {
@@ -21,6 +22,20 @@ const GithubState = (props) => {
 	const [ state, dispatch ] = useReducer(GithubReducer, initialState);
 
 	// Search Users
+	const searchUsers = async (text) => {
+		setLoading();
+		const res = await axios.get(
+			`https://api.github.com/search/users?q=${text}&client_id=$
+			{process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=$
+			{process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+		);
+		// setUsers(res.data.items);
+		dispatch({
+			type: SEARCH_USERS,
+			payload: res.data
+		});
+		setLoading(false);
+	};
 
 	// Get User
 
@@ -29,6 +44,9 @@ const GithubState = (props) => {
 	// Clear Users
 
 	// Set Loading
+	const setLoading = () => {
+		dispatch({ type: SET_LOADING });
+	};
 
 	// what we want to return is the Provider
 	// -> with the value of what we want available in our application
