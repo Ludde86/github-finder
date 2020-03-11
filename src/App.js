@@ -12,7 +12,7 @@ import User from './components/users/User';
 import GithubState from './context/github/GithubState';
 
 const App = () => {
-	const [ users, setUsers ] = useState([]);
+	// const [ users, setUsers ] = useState([]);
 	const [ user, setUser ] = useState({});
 	const [ repos, setRepos ] = useState([]);
 	const [ loading, setLoading ] = useState(false);
@@ -63,10 +63,6 @@ const App = () => {
 		setLoading(false);
 	};
 
-	const clearUsers = () => {
-		setUsers([]);
-	};
-
 	// sets the alert state with the arguments from Search component when the search is empty
 	const showAlert = (msg, type) => {
 		setAlert({ msg, type });
@@ -92,11 +88,7 @@ const App = () => {
 								path="/"
 								render={(props) => (
 									<Fragment>
-										<Search
-											clearUsers={clearUsers}
-											showClear={!!users.length && true}
-											setAlert={showAlert}
-										/>
+										<Search setAlert={showAlert} />
 										<Users />
 									</Fragment>
 								)}

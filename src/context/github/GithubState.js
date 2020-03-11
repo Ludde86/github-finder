@@ -4,6 +4,7 @@ import axios from 'axios';
 import GithubContext from './githubContext';
 import GithubReducer from './githubReducer';
 import { SEARCH_USERS, SET_LOADING, CLEAR_USERS, GET_USERS, GET_REPOS } from '../types';
+import githubContext from './githubContext';
 
 // our initial state
 const GithubState = (props) => {
@@ -41,6 +42,13 @@ const GithubState = (props) => {
 	// Get Repos
 
 	// Clear Users
+	const clearUsers = () => {
+		dispatch({
+			type: CLEAR_USERS,
+			payload: []
+		});
+		// setUsers([]);
+	};
 
 	// Set Loading
 	const setLoading = () => {
@@ -56,7 +64,8 @@ const GithubState = (props) => {
 				user: state.user,
 				repos: state.repos,
 				loading: state.loading,
-				searchUsers
+				searchUsers,
+				clearUsers
 			}}
 		>
 			{props.children}
