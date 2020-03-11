@@ -97,7 +97,7 @@ const App = () => {
 											showClear={!!users.length && true}
 											setAlert={showAlert}
 										/>
-										<Users users={users} loading={loading} />
+										<Users />
 									</Fragment>
 								)}
 							/>

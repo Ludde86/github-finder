@@ -34,7 +34,6 @@ const GithubState = (props) => {
 			type: SEARCH_USERS,
 			payload: res.data.items
 		});
-		setLoading(false);
 	};
 
 	// Get User
