@@ -10,35 +10,9 @@ import GithubState from './context/github/GithubState';
 
 import './App.css';
 import AlertState from './context/alert/AlertState';
+import NotFound from './components/pages/NotFound';
 
 const App = () => {
-	// const [ users, setUsers ] = useState([]);
-	// const [ user, setUser ] = useState({});
-	// const [ repos, setRepos ] = useState([]);
-	// const [ loading, setLoading ] = useState(false);
-	// const [ alert, setAlert ] = useState(null);
-
-	// async componentDidMount() {
-	// 	this.setState({ loading: true });
-	// 	// Get-request to the github api
-	// 	// axios deals with promises (then -> response or reject) -> gets a response, as data
-
-	// 	// axios.get('https://api.github.com/users').then((res) => console.log(res.data));
-	// 	// refactored -> await a response or reject
-	// 	const res = await axios.get(
-	// 		`https://api.github.com/users?client_id=$
-	// 		{process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=$
-	// 		{process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-	// 	);
-
-	// 	this.setState({
-	// 		users: res.data,
-	// 		loading: false
-	// 	});
-	// }
-
-	// all functions is handled by context
-
 	return (
 		<GithubState>
 			<AlertState>
@@ -57,6 +31,7 @@ const App = () => {
 									path="/user/:login" // use :login to know which user to display, as a part of the url
 									component={User}
 								/>
+								<Route component={NotFound} />
 							</Switch>
 						</div>
 					</div>

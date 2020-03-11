@@ -6,7 +6,7 @@ const Alert = () => {
 	const { alert } = alertContext;
 	return (
 		alert !== null && (
-			// here we display the props sent from the alert state
+			// here we display the state sent from the alert context
 			<div className={`alert alert-${alert.type}`}>
 				<i className="fas fa-info-circle" /> {alert.msg}
 			</div>
