@@ -3,7 +3,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import GithubContext from './githubContext';
 import GithubReducer from './githubReducer';
-import { SEARCH_USERS, SET_LOADING, CLEAR_USERS, GET_USERS, GET_REPOS } from '../types';
+import { SEARCH_USERS, SET_LOADING, CLEAR_USERS, GET_USER, GET_REPOS, SET_ALERT } from '../types';
 import githubContext from './githubContext';
 
 // our initial state
@@ -13,7 +13,8 @@ const GithubState = (props) => {
 		users: [],
 		user: {},
 		repos: [],
-		loading: false
+		loading: false,
+		alert: false
 	};
 
 	// in order to dispatch to our reducer (-> calla request to github)
@@ -38,21 +39,62 @@ const GithubState = (props) => {
 	};
 
 	// Get User
+	const getUser = async (username) => {
+		setLoading();
+		const res = await axios.get(
+			`https://api.github.com/users/${username}?client_id=$
+			{process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=$
+			{process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+		);
+		dispatch({
+			type: GET_USER,
+			payload: res.data
+		});
+	};
 
 	// Get Repos
+	const getUserRepos = async (username) => {
+		setLoading();
+
+		const res = await axios.get(
+			`https://api.github.com/users/${username}/repos?per_page=20&sort=created:asc&client_id=$
+			{process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=$
+			{process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+		);
+
+		dispatch({
+			type: GET_REPOS,
+			payload: res.data
+		});
+	};
 
 	// Clear Users
 	const clearUsers = () => {
 		dispatch({
-			type: CLEAR_USERS,
-			payload: []
+			type: CLEAR_USERS
 		});
 		// setUsers([]);
+	};
+
+	// sets the alert state with the arguments from Search component when the search is empty
+	const showAlert = (msg, type) => {
+		setAlert(msg, type);
+		setTimeout(() => {
+			setAlert(null);
+		}, 3000);
 	};
 
 	// Set Loading
 	const setLoading = () => {
 		dispatch({ type: SET_LOADING });
+	};
+
+	// Set Alert
+	const setAlert = (msg, type) => {
+		dispatch({
+			type: SET_ALERT,
+			payload: { msg, type }
+		});
 	};
 
 	// what we want to return is the Provider
@@ -64,8 +106,13 @@ const GithubState = (props) => {
 				user: state.user,
 				repos: state.repos,
 				loading: state.loading,
+				alert: state.alert,
 				searchUsers,
-				clearUsers
+				clearUsers,
+				getUser,
+				getUserRepos,
+				showAlert,
+				setAlert
 			}}
 		>
 			{props.children}

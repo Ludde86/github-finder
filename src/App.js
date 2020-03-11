@@ -1,22 +1,22 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
-import axios from 'axios';
 import Search from './components/users/Search';
 import Alert from './components/layout/Alert';
-
-import './App.css';
 import About from './components/pages/About';
 import User from './components/users/User';
+
 import GithubState from './context/github/GithubState';
+
+import './App.css';
 
 const App = () => {
 	// const [ users, setUsers ] = useState([]);
-	const [ user, setUser ] = useState({});
-	const [ repos, setRepos ] = useState([]);
-	const [ loading, setLoading ] = useState(false);
-	const [ alert, setAlert ] = useState(null);
+	// const [ user, setUser ] = useState({});
+	// const [ repos, setRepos ] = useState([]);
+	// const [ loading, setLoading ] = useState(false);
+	// const [ alert, setAlert ] = useState(null);
 
 	// async componentDidMount() {
 	// 	this.setState({ loading: true });
@@ -39,38 +39,6 @@ const App = () => {
 
 	// searchUsers() is handled by context
 
-	const getUser = async (username) => {
-		setLoading(true);
-		const res = await axios.get(
-			`https://api.github.com/users/${username}?client_id=$
-			{process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=$
-			{process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-		);
-		setUser(res.data);
-		setLoading(false);
-	};
-
-	const getUserRepos = async (username) => {
-		setLoading(true);
-
-		const res = await axios.get(
-			`https://api.github.com/users/${username}/repos?per_page=20&sort=created:asc&client_id=$
-			{process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=$
-			{process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-		);
-
-		setRepos(res.data);
-		setLoading(false);
-	};
-
-	// sets the alert state with the arguments from Search component when the search is empty
-	const showAlert = (msg, type) => {
-		setAlert({ msg, type });
-		setTimeout(() => {
-			setAlert(null);
-		}, 3000);
-	};
-
 	return (
 		<GithubState>
 			<Router>
@@ -88,7 +56,7 @@ const App = () => {
 								path="/"
 								render={(props) => (
 									<Fragment>
-										<Search setAlert={showAlert} />
+										<Search />
 										<Users />
 									</Fragment>
 								)}
@@ -97,18 +65,7 @@ const App = () => {
 							<Route
 								exact
 								path="/user/:login" // use :login to know which user to display, as a part of the url
-								render={(props) => (
-									<Fragment>
-										<User
-											{...props} // we add (display) the props passed in (-> match)
-											getUser={getUser} // pass this function to User.js
-											user={user} // pass the user state
-											repos={repos}
-											getUserRepos={getUserRepos}
-											loading={loading}
-										/>
-									</Fragment>
-								)}
+								component={User}
 							/>
 						</Switch>
 					</div>
