@@ -32,7 +32,7 @@ const GithubState = (props) => {
 		// setUsers(res.data.items);
 		dispatch({
 			type: SEARCH_USERS,
-			payload: res.data
+			payload: res.data.items
 		});
 		setLoading(false);
 	};
@@ -56,7 +56,8 @@ const GithubState = (props) => {
 				users: state.users,
 				user: state.user,
 				repos: state.repos,
-				loading: state.loading
+				loading: state.loading,
+				searchUsers
 			}}
 		>
 			{props.children}
