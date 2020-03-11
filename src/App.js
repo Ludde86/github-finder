@@ -38,7 +38,7 @@ const App = () => {
 	// 	});
 	// }
 
-	// searchUsers() is handled by context
+	// all functions is handled by context
 
 	return (
 		<GithubState>
@@ -54,7 +54,7 @@ const App = () => {
 								<Route
 									exact
 									path="/"
-									render={(props) => (
+									render={() => (
 										<Fragment>
 											<Search />
 											<Users />
