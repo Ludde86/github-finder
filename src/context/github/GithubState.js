@@ -1,9 +1,10 @@
-// here we place our initial state, also all our actions (ex -> call an action to fetch data, search users)
 import React, { useReducer } from 'react';
 import axios from 'axios';
 import GithubContext from './githubContext';
 import GithubReducer from './githubReducer';
 import { SEARCH_USERS, SET_LOADING, CLEAR_USERS, GET_USER, GET_REPOS } from '../types';
+
+// here we place our initial state, also all our actions (ex -> call an action to fetch data, search users)
 
 // our initial state
 const GithubState = (props) => {
@@ -15,7 +16,7 @@ const GithubState = (props) => {
 		loading: false
 	};
 
-	// in order to dispatch to our reducer (-> calla request to github)
+	// in order to dispatch to our reducer (-> call a request to github)
 	// call an action -> make a request to github -> get a response -> dispatch a type back to the reducer
 
 	// we pull state and dispatch from useReducer
